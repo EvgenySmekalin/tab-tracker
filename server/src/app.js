@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
   })
 })
 
-sequelize.sync({force: true})
+sequelize.sync()
   .then(() => {
     http.listen(config.port, function () {
       console.log(`listening on *:${config.port}`)
