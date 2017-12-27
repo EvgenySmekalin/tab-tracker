@@ -71,7 +71,7 @@
                     tabindex="8"
                 ></v-text-field>
             </panel>
-            <v-btn class="cyan mt-2" dark @click="create">Create Song</v-btn>
+            <v-btn class="cyan mt-2" dark @click="save">Save Song</v-btn>
             <v-alert
                 transition="slide-y-reverse-transition"
                 type="error"
@@ -107,7 +107,7 @@ export default {
     Panel
   },
   methods: {
-    async create () {
+    async save () {
       this.error = null
       const areAllFieldsFilledIn = Object
           .keys(this.song)
@@ -117,14 +117,27 @@ export default {
         return
       }
 
+      const songId = this.$store.state.route.params.songId
       try {
-        await SongService.post(this.song)
+        await SongService.put(this.song)
         this.$router.push({
-          name: 'songs'
+          name: 'song',
+          params: {
+            songId: songId
+          }
         })
       } catch (err) {
         console.log(err)
       }
+    }
+  },
+
+  async mounted () {
+    try {
+      const songId = this.$store.state.route.params.songId
+      this.song = (await SongService.show(songId)).data
+    } catch (err) {
+      console.log(err)
     }
   }
 }
