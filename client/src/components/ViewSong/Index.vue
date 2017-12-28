@@ -24,7 +24,6 @@
 
 <script>
 import SongService from '@/services/SongService'
-import Panel from '@/components/Panel'
 import SongMetadata from './SongMetadata'
 import YouTube from './YouTube'
 import Lyrics from './Lyrics'
@@ -45,7 +44,7 @@ export default {
     }
   },
   components: {
-    Panel, SongMetadata, YouTube, Lyrics, Tab
+    SongMetadata, YouTube, Lyrics, Tab
   },
   async mounted () {
     const songId = this.$store.state.route.params.songId
